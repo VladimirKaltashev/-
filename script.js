@@ -24,19 +24,30 @@ function checkInput() {
     }
 }
 
-function addTask() {
-    let taskText = taskInput.value.trim();
-    if (taskText !== '') {
-        tasks.push({
-            text: taskText,
-            completed: false
-        });
+async function addTask() {
+    const taskText = taskInput.value.trim();
+    if (taskText === '') return;
 
-        taskInput.value = '';
-        
-        checkInput();
-        showTasks();
-    }
+    taskInput.disabled = true;
+    addTaskBtn.disabled = true;
+    addTaskBtn.textContent = '';
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner';
+    addTaskBtn.appendChild(spinner);
+
+    await new Promise(resolve => setTimeout(resolve, getRandomDelay()));
+
+    tasks.push({
+        text: taskText,
+        completed: false
+    });
+
+    taskInput.value = '';
+    taskInput.disabled = false;
+    addTaskBtn.innerHTML = '+'; 
+
+    checkInput();
+    showTasks();
 }
 
 function showTasks() {
