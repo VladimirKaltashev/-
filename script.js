@@ -13,7 +13,7 @@ function getRandomDelay() {
 }
 
 function checkInput() {
-    if (taskInput.disabled) return; 
+    if (taskInput.disabled) return;
     if (taskInput.value.trim() === '') {
         addTaskBtn.disabled = true;
         addTaskBtn.style.opacity = '0.5';
@@ -27,15 +27,15 @@ function checkInput() {
 
 async function addTask() {
     const taskText = taskInput.value.trim();
-    if (taskText === '') return;
-
+    if (taskText === '') return;  
     taskInput.disabled = true;
+    taskInput.style.cursor = 'not-allowed';
     addTaskBtn.disabled = true;
     addTaskBtn.textContent = '';
+    addTaskBtn.style.cursor = 'not-allowed';
     const spinner = document.createElement('div');
     spinner.className = 'spinner';
-    addTaskBtn.appendChild(spinner);
-
+    addTaskBtn.appendChild(spinner);  
     await new Promise(resolve => setTimeout(resolve, getRandomDelay()));
 
     tasks.push({
@@ -43,9 +43,10 @@ async function addTask() {
         completed: false,
         loading: null
     });
-
+    
     taskInput.value = '';
     taskInput.disabled = false;
+    taskInput.style.cursor = '';
     addTaskBtn.innerHTML = '+';
 
     checkInput();
@@ -71,7 +72,7 @@ function showTasks() {
 
             let li = document.createElement('li');
             li.className = 'task-item';
-
+        
             if (task.loading === 'toggle') {
                 const spinner = document.createElement('div');
                 spinner.className = 'spinner';
@@ -81,7 +82,10 @@ function showTasks() {
                 checkbox.type = 'checkbox';
                 checkbox.checked = task.completed;
                 checkbox.disabled = (task.loading === 'delete');
-                if (!checkbox.disabled) {
+                if (checkbox.disabled) {
+                    checkbox.style.cursor = 'not-allowed';
+                } else {
+                    checkbox.style.cursor = 'pointer';
                     checkbox.onclick = () => toggleTask(i);
                 }
                 li.appendChild(checkbox);
