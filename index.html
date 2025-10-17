@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Список задач</h1>
+    <input type="text" id="taskInput" placeholder="Введите название задачи">
+    <button id="addTaskBtn">+</button>
+
+    <div class="filters">
+        <label>
+            <input type="radio" name="filter" value="all" checked onclick="filterTasks()"> Все
+        </label>
+        <label>
+            <input type="radio" name="filter" value="completed" onclick="filterTasks()"> Выполненные
+        </label>
+        <label>
+            <input type="radio" name="filter" value="incomplete" onclick="filterTasks()"> Невыполненные
+        </label>
+    </div>
+
+    <ul id="taskList"></ul>
+    <p id="remainingCount"></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
