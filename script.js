@@ -43,7 +43,7 @@ async function addTask() {
         completed: false,
         loading: null
     });
-    
+
     taskInput.value = '';
     taskInput.disabled = false;
     taskInput.style.cursor = '';
@@ -72,7 +72,7 @@ function showTasks() {
 
             let li = document.createElement('li');
             li.className = 'task-item';
-        
+
             if (task.loading === 'toggle') {
                 const spinner = document.createElement('div');
                 spinner.className = 'spinner';
@@ -97,7 +97,7 @@ function showTasks() {
             if (task.completed) {
                 span.classList.add('completed');
             }
-
+            
             li.appendChild(span);
 
             let deleteBtn = document.createElement('span');
@@ -121,6 +121,9 @@ function showTasks() {
             }
             li.appendChild(deleteBtn);
             taskList.appendChild(li);
+            setTimeout(() => {
+                li.classList.add('visible');
+            }, 10);
         }
         if (!task.completed) {
             incompleteCount++;
