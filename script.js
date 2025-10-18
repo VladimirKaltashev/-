@@ -33,6 +33,8 @@ async function addTask() {
     addTaskBtn.disabled = true;
     addTaskBtn.textContent = '';
     addTaskBtn.style.cursor = 'not-allowed';
+    addTaskBtn.style.opacity = '0.5';
+    addTaskBtn.classList.add('loading'); 
     const spinner = document.createElement('div');
     spinner.className = 'spinner';
     addTaskBtn.appendChild(spinner);  
@@ -48,6 +50,8 @@ async function addTask() {
     taskInput.disabled = false;
     taskInput.style.cursor = '';
     addTaskBtn.innerHTML = '+';
+    addTaskBtn.style.opacity = '1';
+    addTaskBtn.classList.remove('loading');
 
     checkInput();
     showTasks();
@@ -97,7 +101,7 @@ function showTasks() {
             if (task.completed) {
                 span.classList.add('completed');
             }
-            
+
             li.appendChild(span);
 
             let deleteBtn = document.createElement('span');
