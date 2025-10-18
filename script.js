@@ -125,9 +125,11 @@ function showTasks() {
             }
             li.appendChild(deleteBtn);
             taskList.appendChild(li);
-            setTimeout(() => {
-                li.classList.add('visible');
-            }, 10);
+            if (!task.deleting) {
+                setTimeout(() => {
+                    li.classList.add('visible');
+                }, 10);
+            }
         }
         if (!task.completed) {
             incompleteCount++;
@@ -153,8 +155,14 @@ async function deleteTask(index) {
 
     await new Promise(resolve => setTimeout(resolve, getRandomDelay()));
 
-    tasks.splice(index, 1);
+    tasks[index].loading = null;
+    tasks[index].deleting = true;
     showTasks();
+
+    setTimeout(() => {
+        tasks.splice(index, 1);
+        showTasks();
+    }, 500);
 }
 
 function filterTasks() {
